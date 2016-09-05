@@ -2,7 +2,7 @@
 
 Firebase login and Sign up functionality with Email
 
-Please replace Keys in provided plist file or Replace GoogleService-Info.plist which you will get from firebase.
+Please replace Keys in GoogleService-Info.plist file or Replace GoogleService-Info.plist which you will get from firebase.
 
 
 # Please check our more demo codes from below links:
