@@ -642,7 +642,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tristatetechnology..FirebaseSignUpAndEmail;
+				PRODUCT_BUNDLE_IDENTIFIER = com.firebaseAuthDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -669,7 +669,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tristatetechnology..FirebaseSignUpAndEmail;
+				PRODUCT_BUNDLE_IDENTIFIER = com.firebaseAuthDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
