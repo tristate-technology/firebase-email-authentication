@@ -13,7 +13,6 @@ Please replace Keys in provided plist file or Replace GoogleService-Info.plist w
 
 
 # Please check our screenshots for more information:
-![alt tag] (https://github.com/HemantDixit10/FirebaseAuthenticationWithEmail/blob/master/Simulator%20Screen%20Shot%201.png)
 ![alt tag] (https://github.com/HemantDixit10/FirebaseAuthenticationWithEmail/blob/master/Simulator%20Screen%20Shot%202.png)
 ![alt tag] (https://github.com/HemantDixit10/FirebaseAuthenticationWithEmail/blob/master/Simulator%20Screen%20Shot%203.png)
 
