@@ -12,9 +12,10 @@ Please replace Keys in GoogleService-Info.plist file or Replace GoogleService-In
 2) Firebase One to One chat Demo For Android : https://github.com/TristateAndroid/FirebaseOneToOneChat
 
 
+
 # Please check our screenshots for more information:
-(https://github.com/HemantDixit10/FirebaseAuthenticationWithEmail/blob/master/Simulator%20Screen%20Shot%202.png)
-(https://github.com/HemantDixit10/FirebaseAuthenticationWithEmail/blob/master/Simulator%20Screen%20Shot%203.png)
+![alt text](https://github.com/HemantDixit10/FirebaseAuthenticationWithEmail/blob/master/Simulator%20Screen%20Shot%202.png "Login")
+![alt text](https://github.com/HemantDixit10/FirebaseAuthenticationWithEmail/blob/master/Simulator%20Screen%20Shot%203.png "Sign Up")
 
 
 
