@@ -1,0 +1,178 @@
+PODS:
+  - BoringSSL-GRPC (0.0.3):
+    - BoringSSL-GRPC/Implementation (= 0.0.3)
+    - BoringSSL-GRPC/Interface (= 0.0.3)
+  - BoringSSL-GRPC/Implementation (0.0.3):
+    - BoringSSL-GRPC/Interface (= 0.0.3)
+  - BoringSSL-GRPC/Interface (0.0.3)
+  - Firebase (5.4.1):
+    - Firebase/Core (= 5.4.1)
+  - Firebase/Analytics (5.4.1):
+    - Firebase/Core
+  - Firebase/Auth (5.4.1):
+    - Firebase/CoreOnly
+    - FirebaseAuth (= 5.0.2)
+  - Firebase/Core (5.4.1):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 5.0.1)
+  - Firebase/CoreOnly (5.4.1):
+    - FirebaseCore (= 5.0.6)
+  - Firebase/Firestore (5.4.1):
+    - Firebase/CoreOnly
+    - FirebaseFirestore (= 0.12.6)
+  - Firebase/Messaging (5.4.1):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (= 3.0.3)
+  - Firebase/Performance (5.4.1):
+    - Firebase/Core
+    - FirebasePerformance (= 2.0.1)
+  - Firebase/RemoteConfig (5.4.1):
+    - Firebase/Core
+    - FirebaseRemoteConfig (= 3.0.0)
+  - FirebaseABTesting (2.0.0):
+    - FirebaseCore (~> 5.0)
+    - Protobuf (~> 3.5)
+  - FirebaseAnalytics (5.0.1):
+    - FirebaseCore (~> 5.0)
+    - FirebaseInstanceID (~> 3.0)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - nanopb (~> 0.3)
+  - FirebaseAuth (5.0.2):
+    - FirebaseCore (~> 5.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseCore (5.0.6):
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+  - FirebaseFirestore (0.12.6):
+    - FirebaseCore (~> 5.0)
+    - FirebaseFirestore/abseil-cpp (= 0.12.6)
+    - gRPC-ProtoRPC (~> 1.0)
+    - leveldb-library (~> 1.18)
+    - nanopb (~> 0.3.8)
+    - Protobuf (~> 3.1)
+  - FirebaseFirestore/abseil-cpp (0.12.6):
+    - FirebaseCore (~> 5.0)
+    - gRPC-ProtoRPC (~> 1.0)
+    - leveldb-library (~> 1.18)
+    - nanopb (~> 0.3.8)
+    - Protobuf (~> 3.1)
+  - FirebaseInstanceID (3.1.1):
+    - FirebaseCore (~> 5.0)
+  - FirebaseMessaging (3.0.3):
+    - FirebaseCore (~> 5.0)
+    - FirebaseInstanceID (~> 3.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - Protobuf (~> 3.1)
+  - FirebasePerformance (2.0.1):
+    - FirebaseAnalytics (~> 5.0)
+    - FirebaseInstanceID (~> 3.1)
+    - FirebaseSwizzlingUtilities/ISASwizzling (~> 2.0)
+    - FirebaseSwizzlingUtilities/MethodSwizzling (~> 2.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+    - Protobuf (~> 3.5)
+  - FirebaseRemoteConfig (3.0.0):
+    - FirebaseABTesting (~> 2.0)
+    - FirebaseAnalytics (~> 5.0)
+    - FirebaseCore (~> 5.0)
+    - FirebaseInstanceID (~> 3.0)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - Protobuf (~> 3.5)
+  - FirebaseSwizzlingUtilities/ISASwizzling (2.0.0)
+  - FirebaseSwizzlingUtilities/MethodSwizzling (2.0.0):
+    - FirebaseCore (~> 5.0)
+  - GoogleToolboxForMac/Defines (2.2.0)
+  - GoogleToolboxForMac/Logger (2.2.0):
+    - GoogleToolboxForMac/Defines (= 2.2.0)
+  - "GoogleToolboxForMac/NSData+zlib (2.2.0)":
+    - GoogleToolboxForMac/Defines (= 2.2.0)
+  - gRPC (1.19.0):
+    - gRPC-RxLibrary (= 1.19.0)
+    - gRPC/Main (= 1.19.0)
+  - gRPC-Core (1.19.0):
+    - gRPC-Core/Implementation (= 1.19.0)
+    - gRPC-Core/Interface (= 1.19.0)
+  - gRPC-Core/Implementation (1.19.0):
+    - BoringSSL-GRPC (= 0.0.3)
+    - gRPC-Core/Interface (= 1.19.0)
+    - nanopb (~> 0.3)
+  - gRPC-Core/Interface (1.19.0)
+  - gRPC-ProtoRPC (1.19.0):
+    - gRPC-ProtoRPC/Main (= 1.19.0)
+  - gRPC-ProtoRPC/Main (1.19.0):
+    - gRPC (= 1.19.0)
+    - gRPC-RxLibrary (= 1.19.0)
+    - Protobuf (~> 3.0)
+  - gRPC-RxLibrary (1.19.0)
+  - gRPC/Main (1.19.0):
+    - gRPC-Core (= 1.19.0)
+    - gRPC-RxLibrary (= 1.19.0)
+  - GTMSessionFetcher/Core (1.2.1)
+  - leveldb-library (1.20)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
+  - Protobuf (3.7.0)
+
+DEPENDENCIES:
+  - Firebase (~> 5.4.0)
+  - Firebase/Analytics (~> 5.4.0)
+  - Firebase/Auth (~> 5.4.0)
+  - Firebase/Core (~> 5.4.0)
+  - Firebase/Firestore (~> 5.4.0)
+  - Firebase/Messaging (~> 5.4.0)
+  - Firebase/Performance (~> 5.4.0)
+  - Firebase/RemoteConfig (~> 5.4.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - BoringSSL-GRPC
+    - Firebase
+    - FirebaseABTesting
+    - FirebaseAnalytics
+    - FirebaseAuth
+    - FirebaseCore
+    - FirebaseFirestore
+    - FirebaseInstanceID
+    - FirebaseMessaging
+    - FirebasePerformance
+    - FirebaseRemoteConfig
+    - FirebaseSwizzlingUtilities
+    - GoogleToolboxForMac
+    - gRPC
+    - gRPC-Core
+    - gRPC-ProtoRPC
+    - gRPC-RxLibrary
+    - GTMSessionFetcher
+    - leveldb-library
+    - nanopb
+    - Protobuf
+
+SPEC CHECKSUMS:
+  BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
+  Firebase: 355bd535bfdacaa82a7fe8d9784115edefd6fc03
+  FirebaseABTesting: 1f50b8d50f5e3469eea54e7463a7b7fe221d1f5e
+  FirebaseAnalytics: b3628aea54c50464c32c393fb2ea032566e7ecc2
+  FirebaseAuth: 096e457cdd4274412a66c4a35874787e411f5a03
+  FirebaseCore: 4c28e3b9708ba48a765e76515f913a71596eb5dd
+  FirebaseFirestore: d4a3a7787624e612298a320da95935b8dc036c1d
+  FirebaseInstanceID: f3f0657372592ecdfdfe2cac604a5a75758376a6
+  FirebaseMessaging: f43eb0c0e1da096e659de6f713038e74862a62cd
+  FirebasePerformance: 1ebd87ffee5ca814582db1dc9e25651792ba02db
+  FirebaseRemoteConfig: 3c57e4644bd6976b671ae0b725cd709f198bd1f5
+  FirebaseSwizzlingUtilities: 6c22677c50d0b6f5f0dc637c1233f13694a3003f
+  GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
+  gRPC: 77d2866b3ce1e187b2239d8adba48b98d9524c15
+  gRPC-Core: bd9472c8daa2e414b9f8038ba667bf56ce0e02b8
+  gRPC-ProtoRPC: cc498c1885e75a1fb6b892881b440707f131fb5e
+  gRPC-RxLibrary: 562e2a6d12137d15dfb93bbf652bd3f638e3eb8a
+  GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
+
+PODFILE CHECKSUM: 10d6edcc5968637771977bc4d23af99c12ce11aa
+
+COCOAPODS: 1.5.2

@@ -678,10 +678,6 @@ TSTTimerDisplay *buttonTimer;
 
 - (TSTButton *)addButton:(NSString *)title
 {
-    // Add button
-    
-    UIColor *blueColorCode = [UIColor colorWithRed:14.0/255.0 green:30.0/255.0 blue:18.0/255.0 alpha:1.0];
-//    UIColor *orangeColorCode = [UIColor colorWithRed:233.0/255.0 green:109.0/255.0 blue:26.0/255.0 alpha:1.0];
     
     TSTButton *btn = [[TSTButton alloc] initWithWindowWidth:self.windowWidth];
     btn.layer.masksToBounds = YES;

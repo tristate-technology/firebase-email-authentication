@@ -7,11 +7,17 @@
 //
 
 #import "SignUpViewController.h"
-#import "Firebase.h"
+//#import "Firebase.h"
+#import <Firebase.h>
+#import <FIRAuth.h>
+#import <FIRUser.h>
+
 @interface SignUpViewController (){
     IBOutlet UITextField *tfEmailID;
     IBOutlet UITextField *tfPassword;
     IBOutlet UITextField *tfConfirmPassword;
+    IBOutlet UIButton *btnSignUp;
+    IBOutlet UIButton *btnLogin;
 }
 @property(strong,nonatomic)IBOutlet UIScrollView *scrollView;
 @property(strong,nonatomic) UITextField *txtFieldCheck;
@@ -24,6 +30,10 @@
 #pragma mark - View Life Cycle Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [btnSignUp.layer setCornerRadius:5.0];
+    [btnLogin.layer setCornerRadius:5.0];
+    btnSignUp.clipsToBounds = true;
+    btnLogin.clipsToBounds = true;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardWillShowNotification
@@ -40,10 +50,11 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
@@ -88,8 +99,7 @@
     return YES;
 }
 
--(BOOL)validateEmailAddress:(NSString *)checkString
-{
+-(BOOL)validateEmailAddress:(NSString *)checkString{
     BOOL stricterFilter = NO; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
     NSString *stricterFilterString = @"^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$";
     NSString *laxString = @"^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$";
@@ -100,14 +110,20 @@
 
 #pragma mark - UITextField Delegate methods
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    
     self.txtFieldCheck = textField;
-    //[textField becomeFirstResponder];
     return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
+    if(textField == tfEmailID){
+        [tfPassword becomeFirstResponder];
+    }else if (textField == tfPassword){
+        [tfConfirmPassword becomeFirstResponder];
+    }else if (textField == tfConfirmPassword){
+        
+        
+    }
     return YES;
 }
 
@@ -127,14 +143,15 @@
 -(IBAction)btnSignUpAction:(id)sender{
     if ([self validation]){
         [self showHud];
-        [[FIRAuth auth] createUserWithEmail:tfEmailID.text password:tfPassword.text completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+
+        [[FIRAuth auth] createUserWithEmail:tfEmailID.text password:tfPassword.text completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
             [self hideHud];
             if (error) {
                 [self displayAlertView:error.localizedDescription];
                 NSLog(@"Error in FIRAuth := %@",error.localizedDescription);
             }
             else{
-                NSLog(@"user Id : %@", user.uid);
+                NSLog(@"user Id : %@", authResult.user.uid);
                 TSTAlertView *alert = [[TSTAlertView alloc] init];
                 alert.backgroundType = Blur;
                 alert.showAnimationType = SlideInFromTop;
@@ -149,8 +166,7 @@
 
 #pragma mark - Keyboard Notifications Methods
 
-- (void) keyboardDidShow:(NSNotification *)notification
-{
+- (void) keyboardDidShow:(NSNotification *)notification{
     NSDictionary* info = [notification userInfo];
     CGRect kbRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     kbRect = [self.view convertRect:kbRect fromView:nil];
@@ -166,8 +182,7 @@
     }
 }
 
-- (void) keyboardWillBeHidden:(NSNotification *)notification
-{
+- (void) keyboardWillBeHidden:(NSNotification *)notification{
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
     self.scrollView.contentInset = contentInsets;
     self.scrollView.scrollIndicatorInsets = contentInsets;

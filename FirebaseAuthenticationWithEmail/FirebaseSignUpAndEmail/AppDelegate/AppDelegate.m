@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "Firebase.h"
-
+//#import "Firebase.h"
+#import <Firebase.h>
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
 @end

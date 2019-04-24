@@ -6,4 +6,4 @@
 //  Copyright © 2016 Tristate Technology. All rights reserved.
 //
 
-static NSString * const ALERT_TITLE = @"Tristate Demo";
+static NSString * const ALERT_TITLE = @"Firebase Demo";

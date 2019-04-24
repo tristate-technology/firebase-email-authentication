@@ -79,19 +79,6 @@
     alert.showAnimationType = SlideInFromTop;
     [alert showNotice:self title:ALERT_TITLE subTitle:@"Please check your internet connection." closeButtonTitle:@"OK" duration:0.0f];
 
-    
-//    UIAlertController * alert=   [UIAlertController
-//                                  alertControllerWithTitle:title
-//                                  message:message
-//                                  preferredStyle:UIAlertControllerStyleAlert];
-//    
-//    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-//        
-//        //do something when click button
-//    }];
-//    [alert addAction:okAction];
-//    UIViewController *vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-//    [vc presentViewController:alert animated:YES completion:nil];
 }
 
 
