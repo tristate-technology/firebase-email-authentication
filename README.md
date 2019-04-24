@@ -1,4 +1,4 @@
-﻿# FirebaseAutheticationWithEmail
+﻿# Firebase Email Authetication
 
 Firebase login and Sign up functionality with Email
 
