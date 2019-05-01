@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-//#import "Firebase.h"
 #import <Firebase.h>
+#import <GoogleSignIn/GoogleSignIn.h>
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
 @end
@@ -18,10 +18,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-   [FIRApp configure];
-    // Override point for customization after application launch.
+    [FIRApp configure];
+    [GIDSignIn sharedInstance].clientID = @"522342973087-1d4nuh7eilu6tibhtuuei3if5ovv85bg.apps.googleusercontent.com";
    
     return YES;
+}
+
+    
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    
+    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                  openURL:url
+                                                        sourceApplication:sourceApplication
+                                                               annotation:annotation
+                    ];
+    // Add any custom logic here.
+    return handled;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -46,6 +61,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+    
 #pragma mark - Split view
 
 - (BOOL)splitViewController:(UISplitViewController *)splitViewController collapseSecondaryViewController:(UIViewController *)secondaryViewController ontoPrimaryViewController:(UIViewController *)primaryViewController {

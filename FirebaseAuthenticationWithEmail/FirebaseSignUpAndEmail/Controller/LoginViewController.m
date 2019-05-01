@@ -8,22 +8,24 @@
 
 #import "LoginViewController.h"
 #import "SignUpViewController.h"
-//#import "Firebase.h"
 #import <Firebase.h>
 #import <FIRAuth.h>
 #import <FIRUser.h>
-
-
-@interface LoginViewController (){
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <GoogleSignIn/GoogleSignIn.h>
+@interface LoginViewController ()<GIDSignInUIDelegate,GIDSignInDelegate>{
     IBOutlet UITextField *tfEmailID;
     IBOutlet UITextField *tfPassword;
     IBOutlet UIImageView *imgCompanyLogo;
     IBOutlet UIButton *btnSignUp;
     IBOutlet UIButton *btnLogin;
+    
+    FBSDKLoginButton *loginButton;
 }
 @property(strong,nonatomic)IBOutlet UIScrollView *scrollView;
 @property(strong,nonatomic) UITextField *txtFieldCheck;
-
+@property(weak, nonatomic) IBOutlet GIDSignInButton *signInButton;
 @end
 
 @implementation LoginViewController
@@ -31,10 +33,10 @@
 #pragma mark - View Life Cycle Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [btnSignUp.layer setCornerRadius:5.0];
-    [btnLogin.layer setCornerRadius:5.0];
-    btnSignUp.clipsToBounds = true;
-    btnLogin.clipsToBounds = true;
+    
+   
+    
+
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
@@ -45,7 +47,13 @@
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-    // Do any additional setup after loading the view.
+    
+    loginButton = [[FBSDKLoginButton alloc] init];
+    if ([FBSDKAccessToken currentAccessToken]) {
+        // User is logged in, do work such as go to next view controller.
+        loginButton.readPermissions = @[@"public_profile", @"email"];
+    }
+     [GIDSignIn sharedInstance].uiDelegate = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -126,12 +134,13 @@
 
 #pragma mark - custom Methods
 -(IBAction)btnLoginAction:(id)sender{
+    [self.view endEditing:YES];
     if ([self validation]){
         [self showHud];
         [[FIRAuth auth] signInWithEmail:tfEmailID.text password:tfPassword.text completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
             [self hideHud];
             if (error) {
-                [self displayAlertView:error.localizedDescription];
+                [self displayAlertView:@"Please enter valid password"];
                 NSLog(@"Error in FIRAuth := %@",error.localizedDescription);
             }
             else{
@@ -154,6 +163,153 @@
     SignUpViewController *objSignUpViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpViewController"];
     [self.navigationController pushViewController:objSignUpViewController animated:YES];
 }
+
+- (IBAction)btnGoogleSignInAction:(UIButton *)sender {
+    [GIDSignIn sharedInstance].delegate = self;
+    [GIDSignIn sharedInstance].uiDelegate = self;
+    [[GIDSignIn sharedInstance] signIn];
+}
+
+
+    #pragma mark - Facebook Login  Methods
+- (IBAction)btnFacebookLoginAction:(UIButton *)sender {
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [login logOut];
+    [login setLoginBehavior:FBSDKLoginBehaviorBrowser];
+    [login
+     
+     logInWithReadPermissions: @[@"email"]
+     fromViewController:self
+     handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+         if (error) {
+             NSLog(@"Process error");
+         } else if (result.isCancelled) {
+             NSLog(@"Cancelled");
+         } else {
+             NSLog(@"Logged in");
+             [self getFacebookUserinfo];
+         }
+     }];
+    
+
+}
+-(void)getFacebookUserinfo{
+    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
+                                       parameters:@{@"fields": @"picture, email, first_name, last_name"}]
+     startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+         if (!error) {
+             NSString *pictureURL = [NSString stringWithFormat:@"%@",[result objectForKey:@"picture"]];
+             
+             NSLog(@"First Name is %@", [result objectForKey:@"first_name"]);
+             NSLog(@"Last Name is %@", [result objectForKey:@"last_name"]);
+             NSLog(@"email is %@", [result objectForKey:@"email"]);
+             NSLog(@"ProfilePic is %@", pictureURL);
+             
+             [self getFirebaseFacebookAuthentication];
+             
+         }
+         else{
+             NSLog(@"%@", [error localizedDescription]);
+         }
+     }];
+}
+    
+-(void)getFirebaseFacebookAuthentication{
+    FIRAuthCredential *credential = [FIRFacebookAuthProvider
+                                     credentialWithAccessToken:[FBSDKAccessToken currentAccessToken].tokenString];
+    [[FIRAuth auth] signInAndRetrieveDataWithCredential:credential
+                                             completion:^(FIRAuthDataResult * _Nullable authResult,
+                                                          NSError * _Nullable error) {
+                                                 if (error) {
+                                                     NSLog(@"%@",error);
+                                                     TSTAlertView *alert = [[TSTAlertView alloc] init];
+                                                     alert.backgroundType = Blur;
+                                                     alert.showAnimationType = SlideInFromTop;
+                                                     [alert showSuccess:self title:ALERT_TITLE subTitle:error.localizedDescription closeButtonTitle:nil duration:0.0f];
+                                                     [alert addButton:@"Okay" actionBlock:^{
+                                                         
+                                                     }];
+                                                     return;
+                                                 }
+    // User successfully signed in. Get user data from the FIRUser object
+                                                 if (authResult == nil) { return; }
+                                                 FIRUser *user = authResult.user;
+                                                 
+                                                 NSLog(@"%@", user.displayName);
+                                                 NSLog(@"%@", user.email);
+                                                 NSLog(@"%@", user.photoURL);
+                                                 TSTAlertView *alert = [[TSTAlertView alloc] init];
+                                                 alert.backgroundType = Blur;
+                                                 alert.showAnimationType = SlideInFromTop;
+                                                 [alert showSuccess:self title:ALERT_TITLE subTitle:@"Login Successfully." closeButtonTitle:nil duration:0.0f];
+                                                 [alert addButton:@"Okay" actionBlock:^{
+                                                     
+                                                 }];
+                                                 
+    }];
+}
+
+#pragma mark - Google Login Method
+- (void)signIn:(GIDSignIn *)signIn presentViewController:(UIViewController *)viewController
+{
+    [self presentViewController:viewController animated:YES completion:nil];
+}
+
+- (void)signIn:(GIDSignIn *)signIn dismissViewController:(UIViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+- (BOOL)application:(nonnull UIApplication *)application
+            openURL:(nonnull NSURL *)url
+            options:(nonnull NSDictionary<NSString *, id> *)options {
+    return [[GIDSignIn sharedInstance] handleURL:url
+                               sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                      annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+}
+
+- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
+    // ...
+    if (error == nil) {
+        GIDAuthentication *authentication = user.authentication;
+        FIRAuthCredential *credential =
+        [FIRGoogleAuthProvider credentialWithIDToken:authentication.idToken
+                                         accessToken:authentication.accessToken];
+        
+        [[FIRAuth auth] signInAndRetrieveDataWithCredential:credential
+                                                 completion:^(FIRAuthDataResult * _Nullable authResult,
+                                                              NSError * _Nullable error) {
+                                                     if (error) {
+                                                         NSLog(@"%@",error);
+                                                         TSTAlertView *alert = [[TSTAlertView alloc] init];
+                                                         alert.backgroundType = Blur;
+                                                         alert.showAnimationType = SlideInFromTop;
+                                                         [alert showSuccess:self title:ALERT_TITLE subTitle:error.localizedDescription closeButtonTitle:nil duration:0.0f];
+                                                         [alert addButton:@"Okay" actionBlock:^{
+                                                             
+                                                         }];
+                                                         
+                                                         return;
+                                                     }
+                                                     // User successfully signed in. Get user data from the FIRUser object
+                                                     if (authResult == nil) { return; }
+                                                     FIRUser *user = authResult.user;
+                                                     
+                                                     NSLog(@"Name: %@",user.displayName);
+                                                     NSLog(@"Email: %@",user.email);
+                                                     
+                                                     TSTAlertView *alert = [[TSTAlertView alloc] init];
+                                                     alert.backgroundType = Blur;
+                                                     alert.showAnimationType = SlideInFromTop;
+                                                     [alert showSuccess:self title:ALERT_TITLE subTitle:@"Login Successfully." closeButtonTitle:nil duration:0.0f];
+                                                     [alert addButton:@"Okay" actionBlock:^{
+                                                         
+                                                     }];
+    }];
+    } else {
+        NSLog(@"%@",error);
+    }
+}
+
 
 #pragma mark - Keyboard Notifications Methods
 - (void) keyboardDidShow:(NSNotification *)notification{
@@ -192,5 +348,13 @@
     
     [viewLayer setShadowPath:[UIBezierPath bezierPathWithRect:viewLayer.bounds].CGPath];
     return view;
+}
+
+-(void)showAlertWithTitle:(NSString*)Title WithMsg:(NSString*)Message {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:Title message: Message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:actionOk];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 @end

@@ -14,5 +14,8 @@ target 'FirebaseSignUpAndEmail' do
   pod 'Firebase/Performance', '~> 5.4.0'
   pod 'Firebase/RemoteConfig', '~> 5.4.0'
   pod 'Firebase/Messaging', '~> 5.4.0'
+  pod 'FBSDKCoreKit', '~> 4.38.0'
+  pod 'FBSDKLoginKit', '~> 4.38.0'
+  pod 'GoogleSignIn'
 
 end
