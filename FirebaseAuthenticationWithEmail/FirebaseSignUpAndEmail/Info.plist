@@ -27,13 +27,13 @@
 			<string>com.ChatDemoFirebase</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.522342973087-1d4nuh7eilu6tibhtuuei3if5ovv85bg</string>
+				<string>REPLACE_GOOGLE_IDENTIFIER</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb343215326286268</string>
+				<string>REPLACE_YOUR_SCHEMA</string>
 			</array>
 		</dict>
 		<dict>
@@ -48,7 +48,7 @@
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>FacebookAppID</key>
-	<string>343215326286268</string>
+	<string>REPLACE_YOUR_FACEBOOK_KEY</string>
 	<key>FacebookDisplayName</key>
 	<string>FirebaseDatabase</string>
 	<key>LSApplicationQueriesSchemes</key>
